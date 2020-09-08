@@ -53,7 +53,7 @@ typedef struct user_data_struct {
 
 void *simple_constructor(godot_object *p_instance, void *p_method_data) {
     user_data_struct *user_data = api->godot_alloc(sizeof(user_data_struct));
-    strcpy(user_data->data, "World from GDNative!");
+    strcpy(user_data->data, "Hello there.!");
 
     return user_data;
 }
