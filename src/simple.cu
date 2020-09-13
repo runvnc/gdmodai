@@ -2,6 +2,8 @@
 
 #include <string.h>
 
+#include "addvector.h"
+
 const godot_gdnative_core_api_struct *api = NULL;
 const godot_gdnative_ext_nativescript_api_struct *nativescript_api = NULL;
 
@@ -52,19 +54,22 @@ typedef struct user_data_struct {
 
 
 void *simple_constructor(godot_object *p_instance, void *p_method_data) {
-    user_data_struct *user_data = api->godot_alloc(sizeof(user_data_struct));
+    user_data_struct *user_data = (user_data_struct*)api->godot_alloc(sizeof(user_data_struct));
     strcpy(user_data->data, "Hello there.!");
-
+    init();
     return user_data;
 }
 
 void simple_destructor(godot_object *p_instance, void *p_method_data, void *p_user_data) {
     api->godot_free(p_user_data);
+    done();
 }
 
 godot_variant simple_get_data(godot_object *p_instance, void *p_method_data,
         void *p_user_data, int p_num_args, godot_variant **p_args) {
+
     godot_string data;
+    godot_string_parse_utf8(&data, calc());
     godot_variant ret;
     user_data_struct *user_data = (user_data_struct *)p_user_data;
 
