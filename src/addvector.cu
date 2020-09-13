@@ -23,6 +23,9 @@ void vecAdd_h(int *A1,int *B1, int *C1, int N)
       C1[i] = A1[i] * B1[i];
 }
 
+
+extern "C" { 
+
 void init()
 {
    printf("Begin \n");
@@ -67,4 +70,6 @@ void done() {
    cudaFree(a_d);
    cudaFree(b_d);
    cudaFree(c_d);
+}
+
 }
