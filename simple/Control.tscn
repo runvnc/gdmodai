@@ -3,6 +3,9 @@
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
 
+const looksize = 100
+var lx = 100
+var ly = 100
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -18,7 +21,14 @@ onready var data = preload(\"res://bin/simple.gdns\").new()
 
 
 func _on_Button_pressed():
-	print(data.get_data())
+	var imgdata = PoolIntArray()
+	var image = get_viewport().get_texture().get_data()
+	for j in range(0,looksize-1):
+		for i in range(0,looksize-1):
+		  var color = image.get_pixel(lx+i,ly+j)
+		  imgdata.append(color.to_rgba32())
+		
+	print(data.get_data(imgdata))
 
 "
 
