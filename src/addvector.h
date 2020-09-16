@@ -18,7 +18,7 @@ extern "C" {
 #endif
 	 void init();
 
-char* calc();
+char* calc(int64_t**);
 
 	void done();
 #ifdef __cplusplus	
