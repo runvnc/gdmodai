@@ -1,71 +1,56 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
-[sub_resource type="GDScript" id=1]
-script/source = "extends Control
+[sub_resource type="World" id=7]
 
-const looksize = 100
-var lx = 100
-var ly = 100
+[sub_resource type="CubeMesh" id=3]
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = \"text\"
+[sub_resource type="SphereMesh" id=4]
 
-# load the Simple library
-onready var data = preload(\"res://bin/simple.gdns\").new()
+[sub_resource type="Environment" id=6]
 
+[sub_resource type="CylinderMesh" id=8]
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+[node name="Node" type="Node"]
 
-
-func _on_Button_pressed():
-	var imgdata = []
-	var image = get_viewport().get_texture().get_data()
-	for j in range(0,looksize-1):
-		for i in range(0,looksize-1):
-		  var color = image.get_pixel(lx+i,ly+j)
-		  imgdata.append(color.to_rgba32())
-		
-	print(data.get_data(imgdata))
-
-"
-
-[sub_resource type="CubeMesh" id=2]
-
-[sub_resource type="SphereMesh" id=3]
-
-[node name="Control" type="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 2.0
-margin_bottom = 2.0
-script = SubResource( 1 )
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+anchor_left = -10.341
+anchor_top = -15.537
+anchor_right = 51.707
+anchor_bottom = 24.438
+margin_left = -362.815
+margin_top = -5521.8
+margin_right = -7200.97
+margin_bottom = -50.8008
+stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="."]
-margin_right = 282.0
-margin_bottom = 53.0
-text = "Test"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 100, 100 )
+world = SubResource( 7 )
+handle_input_locally = false
+render_target_update_mode = 3
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 0.957528, -0.00232185, -0.28833, 0.0112844, 0.999503, 0.0294259, 0.28812, -0.0314298, 0.957078, 0.554594, 0, -1.37662 )
-mesh = SubResource( 2 )
-material/0 = null
-
-[node name="LeftEye" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.13932, -0.998525, -2.16145 )
+[node name="MeshInstance" type="MeshInstance" parent="ViewportContainer/Viewport"]
+transform = Transform( 0.957528, -0.00232185, -0.28833, 0.0112844, 0.999503, 0.0294259, 0.28812, -0.0314298, 0.957078, 0.224936, 0.119359, -1.29069 )
 mesh = SubResource( 3 )
 material/0 = null
 
-[node name="RightEye" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.13932, -0.998525, 1.12872 )
-mesh = SubResource( 3 )
+[node name="LeftEye" type="MeshInstance" parent="ViewportContainer/Viewport"]
+transform = Transform( 1, 9.31323e-10, 0, 0, 1, 1.86265e-09, 0, -1.86265e-09, 1, -4.13932, -0.998525, -2.16145 )
+mesh = SubResource( 4 )
 material/0 = null
-[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+
+[node name="Camera" type="Camera" parent="ViewportContainer/Viewport"]
+transform = Transform( 0.794807, 0, 0.606863, 0, 1, 0, -0.606863, 0, 0.794807, 0, 0, 1.26311 )
+environment = SubResource( 6 )
+
+[node name="RightEye" type="MeshInstance" parent="ViewportContainer/Viewport"]
+transform = Transform( 1, 9.31323e-10, 0, 0, 1, 1.86265e-09, 0, -1.86265e-09, 1, -4.13932, -0.998525, 1.12872 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="MeshInstance2" type="MeshInstance" parent="ViewportContainer/Viewport"]
+mesh = SubResource( 8 )
+material/0 = null

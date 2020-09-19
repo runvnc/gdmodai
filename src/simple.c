@@ -1,7 +1,7 @@
 #include <gdnative_api_struct.gen.h>
 
 #include <string.h>
-
+#include <stdio.h>
 #include "addvector.h"
 
 // test
@@ -16,8 +16,6 @@ void simple_destructor(godot_object *p_instance, void *p_method_data, void *p_us
 godot_variant simple_get_data(godot_object *p_instance, void *p_method_data,
 		void *p_user_data, int p_num_args, godot_variant **p_args);
 
-void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *p_options);
-   
  
 void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *p_options) {
 	api = p_options->api_struct;
@@ -73,19 +71,21 @@ godot_variant simple_get_data(godot_object *p_instance, void *p_method_data,
 		void *p_user_data, int p_num_args, godot_variant **p_args) {
 
 	godot_array inp;
-	inp = godot_variant_as_array(p_args[0]);
+	
+	inp = api->godot_variant_as_array(p_args[0]);
 	int64_t img[100*100];
 	int64_t color;
 	godot_variant temp;
 	for (int i=0; i<100*100; i++) {
-		temp = godot_array_get(&inp, i);
-		img[i] = godot_variant_as_int(&temp);
+		temp = api->godot_array_get(&inp, i);
+		img[i] = api->godot_variant_as_int(&temp);
  	}
+	//printf("%ld",img[0]);
 	godot_string data;
 	godot_variant ret;
 
 	api->godot_string_new(&data);
-	api->godot_string_parse_utf8(&data, calc(&img));
+	api->godot_string_parse_utf8(&data, "Hello\0");// calc(&img));
 	api->godot_variant_new_string(&ret, &data);
 	api->godot_string_destroy(&data);
 
