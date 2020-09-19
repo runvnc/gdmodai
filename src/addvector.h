@@ -1,6 +1,3 @@
-#include <cuda.h>
-#include <gdnative_api_struct.gen.h>
-
 //
 //using namespace std;
 

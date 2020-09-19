@@ -1,3 +1,5 @@
 #!/bin/bash
-nvcc --shared -I../godot_headers -o ../simple/bin/libsimple.so simple.c addvector.cu --compiler-options '-fPIC'
+gcc -std=c11 -fPIC -c -I../godot_headers simple.c -o simple.o
+nvcc -c addvector.cu -o addvector.o
+gcc -rdynamic -shared simple.o addvector.o -o ../simple/bin/libsimple.so
 
