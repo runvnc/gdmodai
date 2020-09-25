@@ -76,16 +76,16 @@ godot_variant simple_get_data(godot_object *p_instance, void *p_method_data,
 	int64_t img[100*100];
 	int64_t color;
 	godot_variant temp;
-	for (int i=0; i<100*100; i++) {
+	for (int i=0; i<100*10; i++) {
 		temp = api->godot_array_get(&inp, i);
 		img[i] = api->godot_variant_as_int(&temp);
  	}
 	//printf("%ld",img[0]);
 	godot_string data;
 	godot_variant ret;
-
+	calc(&img);
 	api->godot_string_new(&data);
-	api->godot_string_parse_utf8(&data, "Hello\0");// calc(&img));
+	api->godot_string_parse_utf8(&data, "Hello\0");
 	api->godot_variant_new_string(&ret, &data);
 	api->godot_string_destroy(&data);
 
