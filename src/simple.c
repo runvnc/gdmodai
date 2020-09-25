@@ -83,9 +83,8 @@ godot_variant simple_get_data(godot_object *p_instance, void *p_method_data,
 	//printf("%ld",img[0]);
 	godot_string data;
 	godot_variant ret;
-	calc(&img);
 	api->godot_string_new(&data);
-	api->godot_string_parse_utf8(&data, "Hello\0");
+	api->godot_string_parse_utf8(&data, calc(&img));
 	api->godot_variant_new_string(&ret, &data);
 	api->godot_string_destroy(&data);
 

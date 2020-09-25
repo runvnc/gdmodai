@@ -6,10 +6,38 @@ using namespace std;
 int *a, *b;  // host data
 int *c, *c2;  // results
 int *a_d,*b_d,*c_d;
-int n=10000000;
+//int n=10000000;
+int n = 100 * 100;
 int block_size, block_no; 
 
 char retdata[50];
+
+
+// detectEdge(int *imgIn, *imgOut)
+// add up color of all neighbors
+// get avg
+// compare to color of this pixel
+// if its greater than threshold
+// return color set
+// else return 0
+
+__global__ void detectEdge(int *imgIn,int *B,int *imgOut,int N)
+{
+   int i = blockIdx.x * blockDim.x + threadIdx.x;
+   int y = i / 100;
+   int x = i % 100;
+   int sum = 0;
+   for (int oy=-1; oy<=1; oy++) {
+	 for (int ox=-1; ox<=1; ox++) {
+	   int index = (y+oy) * 100 + (x+ox);
+	   sum += imgIn[index];
+	 }
+   }
+   float avg = sum / 9.0;
+   float diff = imgIn[i] - avg;
+   if (abs(diff) > 1000) imgOut[i] = 255*255*100;
+   else imgOut[i] = 0;
+}
 
 __global__ void vecAdd(int *A,int *B,int *C,int N)
 {
@@ -28,7 +56,7 @@ extern "C" {
 	void init()
 	{
 	   printf("Begin \n");
-	  int nBytes = n*sizeof(int);
+	   int nBytes = n*sizeof(int);
 	   a = (int *)malloc(nBytes);
 	   b = (int *)malloc(nBytes);
 	   c = (int *)malloc(nBytes);
@@ -48,20 +76,16 @@ extern "C" {
 	char* calc(int64_t **img) {
 	   printf("Copying to device..\n");
 	   cudaMemcpy(a_d,a,n*sizeof(int),cudaMemcpyHostToDevice);
+	   cudaMemcpy(a_d,img,n*sizeof(int),cudaMemcpyHostToDevice);
 	   cudaMemcpy(b_d,b,n*sizeof(int),cudaMemcpyHostToDevice);
 	   clock_t start_d=clock();
-	   printf("Doing GPU Vector add\n");
-	   vecAdd<<<block_no,block_size>>>(a_d,b_d,c_d,n);
+	   printf("Doing GPU edge detect\n");
+	   detectEdge<<<block_no,block_size>>>(a_d,b_d,c_d,n);
 	   cudaThreadSynchronize();
 	   clock_t end_d = clock();
-	   clock_t start_h = clock();
-	   printf("Doing CPU Vector add\n");
-	   vecAdd_h(a,b,c2,n);
-	   clock_t end_h = clock();
 	   double time_d = (double)(end_d-start_d)/CLOCKS_PER_SEC;
-	   double time_h = (double)(end_h-start_h)/CLOCKS_PER_SEC;
 	   cudaMemcpy(c,c_d,n*sizeof(int),cudaMemcpyDeviceToHost);
-	   sprintf(retdata, "%d %f %f\n",n,time_d,time_h);
+	   sprintf(retdata, "%d %f\n",n,time_d);
 	   return retdata;
 	}
 	
