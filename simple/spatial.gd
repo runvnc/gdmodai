@@ -15,8 +15,8 @@ onready var data = preload("res://bin/simple.gdns").new()
 func _on_Button_pressed():
 	var imgdata = []
 	var image = get_viewport().get_texture().get_data()
-	for j in range(0,looksize-1):
-		for i in range(0,looksize-1):
+	for j in range(0,looksize):
+		for i in range(0,looksize):
 		  var color = image.get_pixel(lx+i,ly+j)
 		  imgdata.append(color.to_rgba32())
 
