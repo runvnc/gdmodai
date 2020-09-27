@@ -55,4 +55,10 @@ margin_left = 18.0
 margin_top = 219.0
 margin_right = 218.0
 margin_bottom = 393.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+flip_v = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="Control/Button" to="." method="_on_Button_pressed"]

@@ -15,10 +15,13 @@ onready var data = preload("res://bin/simple.gdns").new()
 func _on_Button_pressed():
 	var imgdata = []
 	var view = get_tree().current_scene.find_node("view")
-
-	view.Texture = get_viewport().get_texture()
 	#view.draw_rect
+	view.set_texture(get_viewport().get_texture())
 	var image = get_viewport().get_texture().get_data()
+	#var itex = ImageTexture.new()
+	
+	#itex.create_from_image(image)
+	#view.Texture = itex
 	for j in range(0,looksize):
 		for i in range(0,looksize):
 		  var color = image.get_pixel(lx+i,ly+j)
