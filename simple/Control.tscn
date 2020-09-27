@@ -12,12 +12,12 @@
 script = ExtResource( 1 )
 
 [node name="RightEye" type="MeshInstance" parent="."]
-transform = Transform( 1, 9.31323e-10, 0, 0, 1, 1.86265e-09, 0, -1.86265e-09, 1, -4.13932, -0.998525, 1.12872 )
+transform = Transform( 0.963705, 4.0025e-10, 0.266969, 0, 1, 1.86265e-09, -0.266969, -2.04368e-09, 0.963705, -4.13932, -0.998525, 1.12872 )
 mesh = SubResource( 1 )
 material/0 = null
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 0.957528, -0.00232185, -0.28833, 0.0112844, 0.999503, 0.0294259, 0.28812, -0.0314298, 0.957078, 0.224936, 0.119359, -1.29069 )
+transform = Transform( 0.767905, 0.0101865, -0.640482, 0.0112844, 0.999503, 0.0294259, 0.640465, -0.0298238, 0.767408, 0.224936, 0.119359, -1.29069 )
 mesh = SubResource( 2 )
 material/0 = null
 
@@ -49,4 +49,10 @@ text = "Test"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="view" type="TextureRect" parent="Control"]
+margin_left = 18.0
+margin_top = 219.0
+margin_right = 218.0
+margin_bottom = 393.0
 [connection signal="pressed" from="Control/Button" to="." method="_on_Button_pressed"]

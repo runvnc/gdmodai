@@ -14,6 +14,10 @@ onready var data = preload("res://bin/simple.gdns").new()
 
 func _on_Button_pressed():
 	var imgdata = []
+	var view = get_tree().current_scene.find_node("view")
+
+	view.Texture = get_viewport().get_texture()
+	#view.draw_rect
 	var image = get_viewport().get_texture().get_data()
 	for j in range(0,looksize):
 		for i in range(0,looksize):
@@ -22,7 +26,6 @@ func _on_Button_pressed():
 
 	print("got image data")
 	print(data.get_data(imgdata))
-
 
 
 # Declare member variables here. Examples:
