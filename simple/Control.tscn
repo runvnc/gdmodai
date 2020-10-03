@@ -27,7 +27,7 @@ mesh = SubResource( 1 )
 material/0 = null
 
 [node name="KinematicBody" type="KinematicBody" parent="."]
-transform = Transform( 0.876814, 0.304226, -0.37235, -0.437133, 0.826908, -0.353748, 0.20028, 0.472938, 0.858032, -0.46798, 0, 1.51252 )
+transform = Transform( 0.981492, 0.158522, 0.107449, -0.151392, 0.985878, -0.0715873, -0.11728, 0.0539955, 0.99163, -0.46798, 0, 1.51252 )
 
 [node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
 transform = Transform( 0.992465, 0, 0.122528, 0, 1, 0, -0.122528, 0, 0.992465, 0, 0, 0 )
@@ -51,14 +51,21 @@ __meta__ = {
 }
 
 [node name="view" type="TextureRect" parent="Control"]
-margin_left = 18.0
-margin_top = 219.0
-margin_right = 218.0
-margin_bottom = 393.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
+anchor_left = 0.5
+anchor_top = 5.475
+anchor_right = 21.589
+anchor_bottom = 13.566
+margin_left = -2.0
+margin_top = -1.52588e-05
+margin_right = -18.5601
+margin_bottom = -27.64
+size_flags_horizontal = 3
+size_flags_vertical = 3
 flip_v = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.317459, 1.39384, 0.561978 )
 [connection signal="pressed" from="Control/Button" to="." method="_on_Button_pressed"]

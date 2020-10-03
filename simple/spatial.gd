@@ -25,7 +25,6 @@ func _on_Button_pressed():
 	for j in range(0,looksize):
 		for i in range(0,looksize):
 			var color = image.get_pixel(lx+i,ly+j)
-			print(color.r,color.g,color.b)
 			img.set_pixel(i,j,color)
 			imgdata.append(color.to_rgba32())
 	
