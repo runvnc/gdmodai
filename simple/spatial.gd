@@ -1,8 +1,8 @@
 extends Spatial
 
 const looksize = 100
-var lx = 100
-var ly = 100
+var lx = 80
+var ly = 250
 
 var img
 var imgtext
