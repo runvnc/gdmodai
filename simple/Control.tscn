@@ -17,7 +17,7 @@ mesh = SubResource( 1 )
 material/0 = null
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 0.393219, 0.0226213, -0.919166, 0.0112844, 0.999503, 0.0294259, 0.919376, -0.0219431, 0.392768, 0.224936, 0.119359, -1.29069 )
+transform = Transform( 0.0612972, 0.028681, -0.997707, 0.0112844, 0.999503, 0.0294259, 0.998056, -0.0130623, 0.060943, 0.224936, 0.119359, -1.29069 )
 mesh = SubResource( 2 )
 material/0 = null
 
@@ -27,7 +27,7 @@ mesh = SubResource( 1 )
 material/0 = null
 
 [node name="KinematicBody" type="KinematicBody" parent="."]
-transform = Transform( 0.987091, 0.154614, 0.0417897, -0.151392, 0.985878, -0.0715873, -0.052268, 0.0643368, 0.996559, -0.46798, 0.30769, 2.10976 )
+transform = Transform( 0.983284, 0.157615, 0.0911669, -0.18045, 0.910395, 0.372316, -0.0243161, -0.382543, 0.923618, -0.46798, 0.59725, 2.10976 )
 
 [node name="CollisionShape" type="CollisionShape" parent="KinematicBody"]
 transform = Transform( 0.992465, 0, 0.122528, 0, 1, 0, -0.122528, 0, 0.992465, 0, 0, 0 )

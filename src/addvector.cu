@@ -73,7 +73,7 @@ extern "C" {
 	   cudaMalloc((void **)&c_d,n*sizeof(int));
 	}
 	
-	char* calc(int64_t **img) {
+	int* calc(int64_t **img) {
 	   printf("Copying to device..\n");
 	   cudaMemcpy(a_d,a,n*sizeof(int),cudaMemcpyHostToDevice);
 	   cudaMemcpy(a_d,img,n*sizeof(int),cudaMemcpyHostToDevice);
@@ -85,8 +85,7 @@ extern "C" {
 	   clock_t end_d = clock();
 	   double time_d = (double)(end_d-start_d)/CLOCKS_PER_SEC;
 	   cudaMemcpy(c,c_d,n*sizeof(int),cudaMemcpyDeviceToHost);
-	   sprintf(retdata, "%d %f\n",n,time_d);
-	   return retdata;
+	   return c;
 	}
 	
 	void done() {

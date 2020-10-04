@@ -19,8 +19,6 @@ godot_variant simple_get_data(godot_object *p_instance, void *p_method_data,
  
 void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *p_options) {
 	api = p_options->api_struct;
-
-	// Now find our extensions.
 	for (int i = 0; i < api->num_extensions; i++) {
 		switch (api->extensions[i]->type) {
 			case GDNATIVE_EXT_NATIVESCRIPT: {
@@ -52,6 +50,10 @@ void GDN_EXPORT godot_nativescript_init(void *p_handle) {
 
 typedef struct user_data_struct {
 	char data[256];
+        int arr[100*100];
+	godot_array gdoarr;
+	godot_variant intarr[100*100];
+	godot_variant ret;
 } user_data_struct;
 
 
@@ -83,14 +85,12 @@ godot_variant simple_get_data(godot_object *p_instance, void *p_method_data,
 		temp = api->godot_array_get(&inp, i);
 		img[i] = api->godot_variant_as_int(&temp);
  	}
-	//printf("%ld",img[0]);
-	godot_string data;
-	godot_variant ret;
-	api->godot_string_new(&data);
-	calc(&img);
-	api->godot_string_parse_utf8(&data, msg); //calc(&img));
-	api->godot_variant_new_string(&ret, &data);
-	api->godot_string_destroy(&data);
+	user_data_struct* d = (user_data_struct*)p_user_data;
+	d->arr = calc(&img);
+        api->godot_array_new(&(d->gdoarr));
+        for (int i=0; i < size; i++)
+          api->godot_array_push_back(d->gdoarr,api->godot_variant_new_int(d->intarr,d->arr[i]));
+        api->godot_variant_new_array(d->ret, d->intarr);
 
 	return ret;
 }
