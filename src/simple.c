@@ -50,7 +50,7 @@ void GDN_EXPORT godot_nativescript_init(void *p_handle) {
 
 typedef struct user_data_struct {
 	char data[256];
-        int arr[100*100];
+        int** arr;//[100*100];
 	godot_array gdoarr;
 	godot_variant intarr[100*100];
 	godot_variant ret;
@@ -82,17 +82,19 @@ godot_variant simple_get_data(godot_object *p_instance, void *p_method_data,
 	char msg[100];
 	sprintf(msg, "Array size is %d\n", size);
 	for (int i=0; i<size; i++) {
-		temp = api->godot_array_get(&inp, i);
-		img[i] = api->godot_variant_as_int(&temp);
+	  temp = api->godot_array_get(&inp, i);
+	  img[i] = api->godot_variant_as_int(&temp);
  	}
 	user_data_struct* d = (user_data_struct*)p_user_data;
 	d->arr = calc(&img);
         api->godot_array_new(&(d->gdoarr));
-        for (int i=0; i < size; i++)
-          api->godot_array_push_back(d->gdoarr,api->godot_variant_new_int(d->intarr,d->arr[i]));
-        api->godot_variant_new_array(d->ret, d->intarr);
+        for (int i=0; i < size; i++) {
+          api->godot_variant_new_int(&(d->intarr[i]), *(d->arr)[i]);
+      	  api->godot_array_push_back(&(d->gdoarr), &(d->intarr[i]));
+        }
+  	api->godot_variant_new_array(&(d->ret), &(d->intarr));
 
-	return ret;
+	return d->ret;
 }
 
 
