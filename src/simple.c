@@ -50,7 +50,7 @@ void GDN_EXPORT godot_nativescript_init(void *p_handle) {
 
 typedef struct user_data_struct {
 	char data[256];
-        int** arr;//[100*100];
+        int* arr;//[100*100];
 	godot_array gdoarr;
 	godot_variant intarr[100*100];
 	godot_variant ret;
@@ -89,11 +89,11 @@ godot_variant simple_get_data(godot_object *p_instance, void *p_method_data,
 	d->arr = calc(&img);
         api->godot_array_new(&(d->gdoarr));
         for (int i=0; i < size; i++) {
-          api->godot_variant_new_int(&(d->intarr[i]), *(d->arr)[i]);
+          api->godot_variant_new_int(&(d->intarr[i]), d->arr[i]);
       	  api->godot_array_push_back(&(d->gdoarr), &(d->intarr[i]));
         }
   	api->godot_variant_new_array(&(d->ret), &(d->gdoarr));
-
+        
 	return d->ret;
 }
 

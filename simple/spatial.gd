@@ -32,10 +32,18 @@ func _on_Button_pressed():
 	image.unlock()
 	imgtext = ImageTexture.new()
 	
+	img.lock()
+	var arr = data.get_data(imgdata)
+	print(arr[0])
+	for j in range(0,looksize):
+		for i in range(0,looksize):
+			
+			var color = Color(arr[j*100+i])
+			img.set_pixel(i,j,color)
+	img.unlock()
 	imgtext.create_from_image(img)
 	var view = get_tree().current_scene.find_node("view")
 	view.texture = imgtext
-	print(data.get_data(imgdata))
 
 #func _on_Button_pressed():
 #	var imgdata = []

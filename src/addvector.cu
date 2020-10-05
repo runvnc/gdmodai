@@ -35,8 +35,9 @@ __global__ void detectEdge(int *imgIn,int *B,int *imgOut,int N)
    }
    float avg = sum / 9.0;
    float diff = imgIn[i] - avg;
-   if (abs(diff) > 1000) imgOut[i] = 255*255*100;
-   else imgOut[i] = 0;
+   imgOut[i] = 255*255*1*199;
+   //if (true || abs(diff) > 1) imgOut[i] = 255*255*100;
+   //else imgOut[i] = 0;
 }
 
 __global__ void vecAdd(int *A,int *B,int *C,int N)
