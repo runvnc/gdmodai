@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cuda.h>
+#include <assert.h>
 
 using namespace std;
 
@@ -21,9 +22,14 @@ char retdata[50];
 // return color set
 // else return 0
 
+const int mag = 155;
+
 __global__ void detectEdge(int *imgIn,int *B,int *imgOut,int N)
 {
    int i = blockIdx.x * blockDim.x + threadIdx.x;
+   imgOut[i] = mag;
+  /*
+ 
    int y = i / 100;
    int x = i % 100;
    int sum = 0;
@@ -35,9 +41,9 @@ __global__ void detectEdge(int *imgIn,int *B,int *imgOut,int N)
    }
    float avg = sum / 9.0;
    float diff = imgIn[i] - avg;
-   imgOut[i] = 255*255*1*199;
+   imgOut[i] = 155*205*200*2 ;
    //if (true || abs(diff) > 1) imgOut[i] = 255*255*100;
-   //else imgOut[i] = 0;
+   //else imgOut[i] = 0; */
 }
 
 __global__ void vecAdd(int *A,int *B,int *C,int N)
@@ -86,6 +92,7 @@ extern "C" {
 	   clock_t end_d = clock();
 	   double time_d = (double)(end_d-start_d)/CLOCKS_PER_SEC;
 	   cudaMemcpy(c,c_d,n*sizeof(int),cudaMemcpyDeviceToHost);
+           assert(c[1] == 155);
 	   return c;
 	}
 	
