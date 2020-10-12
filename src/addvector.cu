@@ -81,7 +81,7 @@ extern "C" {
 	   b = (int *)malloc(nBytes);
 	   c = (int *)malloc(nBytes);
 	   c2 = (int *)malloc(nBytes);
-	   block_size=1024;
+	   block_size=512;
 	   block_no = n/block_size;
 	   dim3 dimBlock(block_size,1,1);
 	   dim3 dimGrid(block_no,1,1);
@@ -101,7 +101,7 @@ extern "C" {
 	   cudaMemcpy(b_d,b,n*sizeof(int),cudaMemcpyHostToDevice);
 	   clock_t start_d=clock();
 	   printf("Doing GPU edge detect\n");
-	   block_size=1024;
+	   block_size=512;
 	   block_no = n/block_size;
 	   dim3 dimBlock(block_size,1,1);
 	   dim3 dimGrid(block_no,1,1);
