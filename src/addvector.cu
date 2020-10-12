@@ -2,6 +2,19 @@
 #include <cuda.h>
 #include <assert.h>
 
+
+#define cudaCheckError(msg) \
+    do { \
+        cudaError_t __err = cudaGetLastError(); \
+        if (__err != cudaSuccess) { \
+            fprintf(stderr, "Fatal error: %s (%s at %s:%d)\n", \
+                msg, cudaGetErrorString(__err), \
+                __FILE__, __LINE__); \
+            fprintf(stderr, "*** FAILED - ABORTING\n"); \
+            exit(1); \
+        } \
+    } while (0)
+
 using namespace std;
 
 int *a, *b;  // host data
@@ -68,7 +81,7 @@ extern "C" {
 	   b = (int *)malloc(nBytes);
 	   c = (int *)malloc(nBytes);
 	   c2 = (int *)malloc(nBytes);
-	   block_size=4000;
+	   block_size=1024;
 	   block_no = n/block_size;
 	   dim3 dimBlock(block_size,1,1);
 	   dim3 dimGrid(block_no,1,1);
@@ -78,21 +91,30 @@ extern "C" {
 	   cudaMalloc((void **)&a_d,n*sizeof(int));
 	   cudaMalloc((void **)&b_d,n*sizeof(int));
 	   cudaMalloc((void **)&c_d,n*sizeof(int));
+	   cudaCheckError("malloc");
 	}
 	
-	int* calc(int64_t **img) {
+	int* calc(int64_t *img) {
 	   printf("Copying to device..\n");
 	   cudaMemcpy(a_d,a,n*sizeof(int),cudaMemcpyHostToDevice);
 	   cudaMemcpy(a_d,img,n*sizeof(int),cudaMemcpyHostToDevice);
 	   cudaMemcpy(b_d,b,n*sizeof(int),cudaMemcpyHostToDevice);
 	   clock_t start_d=clock();
 	   printf("Doing GPU edge detect\n");
+	   block_size=1024;
+	   block_no = n/block_size;
+	   dim3 dimBlock(block_size,1,1);
+	   dim3 dimGrid(block_no,1,1);
+
 	   detectEdge<<<block_no,block_size>>>(a_d,b_d,c_d,n);
 	   cudaThreadSynchronize();
+	   cudaCheckError("blah");
 	   clock_t end_d = clock();
 	   double time_d = (double)(end_d-start_d)/CLOCKS_PER_SEC;
 	   cudaMemcpy(c,c_d,n*sizeof(int),cudaMemcpyDeviceToHost);
-           assert(c[1] == 155);
+	   printf("num=%d\n",c[1]);
+
+	   assert(c[1] == 155);
 	   return c;
 	}
 	
