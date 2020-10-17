@@ -17,7 +17,7 @@ mesh = SubResource( 1 )
 material/0 = null
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( -0.194744, 0.0310611, -0.980362, 0.0112844, 0.999503, 0.0294259, 0.980789, -0.00533232, -0.194998, 0.224936, 0.119359, -1.29069 )
+transform = Transform( -0.166698, 0.0308964, -0.985524, 0.0112844, 0.999503, 0.0294259, 0.985943, -0.00621585, -0.166964, 0.224936, 0.119359, -1.29069 )
 mesh = SubResource( 2 )
 material/0 = null
 

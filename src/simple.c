@@ -90,7 +90,6 @@ godot_variant simple_get_data(godot_object *p_instance, void *p_method_data,
         api->godot_array_new(&(d->gdoarr));
         for (int i=0; i < size; i++) {
           api->godot_variant_new_int(&(d->intarr[i]), nums[i]);
-          //api->godot_variant_new_int(&(d->intarr[i]), 155*205*200*2);
 	  api->godot_array_push_back(&(d->gdoarr), &(d->intarr[i]));
         }
   	api->godot_variant_new_array(&(d->ret), &(d->gdoarr));

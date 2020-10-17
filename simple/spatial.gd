@@ -35,33 +35,17 @@ func _on_Button_pressed():
 	img.lock()
 	var arr = data.get_data(imgdata)
 	print(arr[0])
+	
 	for j in range(0,looksize):
 		for i in range(0,looksize):
-			
-			var color = Color(arr[j*100+i])
+			var color = Color.black
+			if arr[j*100+i] != 0:
+				color = Color.white
 			img.set_pixel(i,j,color)
 	img.unlock()
 	imgtext.create_from_image(img)
 	var view = get_tree().current_scene.find_node("view")
 	view.texture = imgtext
-
-#func _on_Button_pressed():
-#	var imgdata = []
-#	var view = get_tree().current_scene.find_node("view")
-#	#view.draw_rect
-#	view.set_texture(get_viewport().get_texture())
-#	var image = get_viewport().get_texture().get_data()
-#	#var itex = ImageTexture.new()
-#
-#	#itex.create_from_image(image)
-#	#view.Texture = itex
-#	for j in range(0,looksize):
-#		for i in range(0,looksize):
-#		  var color = image.get_pixel(lx+i,ly+j)
-#		  imgdata.append(color.to_rgba32())
-#
-#	print("got image data")
-#	print(data.get_data(imgdata))
 
 
 # Called when the node enters the scene tree for the first time.

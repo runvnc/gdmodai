@@ -1,0 +1,20 @@
+
+lots of little processors cooperating to create and update a model
+
+trying to reverse engineer the input I am receiving
+
+
+each module is trying to create a model that can generate and predict its input
+submodels predict small parts
+parent models predict larger parts combining smaller
+predict the input based on what though?
+based on the time or an ongoing series?
+
+based on some secondary input that
+
+
+maybe just an input and an output
+the input is which direction it is looking
+and the output is what the sensors receive
+
+
